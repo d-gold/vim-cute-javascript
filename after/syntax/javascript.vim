@@ -3,6 +3,9 @@ if exists('g:no_js_conceal') || !has('conceal') || &enc != 'utf-8'
     finish
 endif
 
+syntax clear javaScriptBoolean
+syntax clear javaScriptNull
+
 
 syntax match jsNiceFunction "\<function\>" conceal cchar=𝐹
 
@@ -72,7 +75,9 @@ syntax match jsEmptyMap2 contained "\s*}" conceal cchar=ₒ
 syntax match jsEmptyMapFull "{\s*}" contains=jsEmptyMap1,jsEmptyMap2,jsEmptyMap3
 
 " Functions
-syntax match jsNiceBuiltin "\<length\>" conceal cchar=#
+syntax match jsLength1 contained "\<l" conceal cchar=#
+syntax match jsLength2 contained "ength" conceal cchar=ₗ
+syntax match jsLength "\<length\>" contains=jsLength1,jsLength2
 syntax match jsNiceOperator "\<forEach\>" conceal cchar=∀
 
 
