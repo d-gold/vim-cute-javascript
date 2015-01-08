@@ -145,7 +145,6 @@ syntax match jsNiceOperator "\<forEach\>" conceal cchar=∀
 
 
 hi link jsNiceOperator Operator
-
 hi! link Conceal Operator
 hi! Conceal ctermbg=Black ctermfg=LightGreen
 
