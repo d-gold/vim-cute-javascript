@@ -17,7 +17,14 @@ syntax clear jsBracket
 
 
 
-syntax match jsNiceFunction "\<function\>" conceal cchar=𝐹
+" syntax match jsNiceFunction "\<function\>" conceal cchar=𝐹
+"syntax match   jsNiceFunction /\<function\>/ nextgroup=jsFuncName,jsFuncArgs skipwhite conceal cchar=ƒ
+"
+syntax match jsFunctionAFull /\<function\s*(/me=e-1 conceal cchar=λ
+
+syntax match jsFunctionB1 contained "\<f" conceal cchar=ƒ
+syntax match jsFunctionB2 contained /unction\s\+[_A-Za-z]/me=e-1 conceal cchar= 
+syntax match jsFunctionBFull /\<function\s\+[_A-Za-z]/ contains=jsFunctionB1,jsFunctionB2
 
 " Constants
 syntax match jsNull1 contained "\<n" conceal cchar=⊥
@@ -97,9 +104,9 @@ syntax match jsRLArrow3 contained "\s\+" conceal cchar=
 syntax match jsRLArrowFull "\s\+=\s\+" contains=jsRLArrow1,jsRLArrow2,jsRLArrow3
 
 " Sets
-syntax match jsEmptySet1 contained "\s+\[" conceal cchar=∅
+syntax match jsEmptySet1 contained "\s\+\[\s*" conceal cchar=∅
 syntax match jsEmptySet2 contained "\]" conceal cchar= 
-syntax match jsEmptySetFull "\s+\[\]" contains=jsEmptySet1,jsEmptySet2
+syntax match jsEmptySetFull "\s\+\[\s*\]" contains=jsEmptySet1,jsEmptySet2
 
 syntax match jsEmptyMap1 contained "{" conceal cchar=∅
 syntax match jsEmptyMap2 contained "\s*}" conceal cchar=ₒ
@@ -111,10 +118,37 @@ syntax match jsLength2 contained "ength" conceal cchar=ₗ
 syntax match jsLength "\<length\>" contains=jsLength1,jsLength2
 syntax match jsNiceOperator "\<forEach\>" conceal cchar=∀
 
+syntax keyword jsNiceReturn return conceal cchar=↵
 
 
+syntax match jsArrow /\s+=>\s+/ conceal cchar=→
+"syntax match jsArrow /\s+=>\s+/ conceal cchar=⇒
 
+" Mongo
 
+syntax match jsMongoWhere1 contained "\$" conceal cchar=∵
+syntax match jsMongoWhere2 contained "where\>" conceal cchar= 
+syntax match jsMongoWhere "\$where\>" contains=jsMongoWhere1,jsMongoWhere2
+
+" syntax match jsMongoExists1 contained "\$" conceal cchar=∃
+" syntax match jsMongoExists2 contained "exists\>" conceal cchar= 
+" syntax match jsMongoExists "\$exists\>" contains=jsMongoExists1,jsMongoExists2
+
+syntax match jsMongoIn1 contained "\$" conceal cchar=∃
+syntax match jsMongoIn2 contained "in\>" conceal cchar= 
+syntax match jsMongoIn "\$in\>" contains=jsMongoIn1,jsMongoIn2
+
+syntax match jsMongoNin1 contained "\$" conceal cchar=∄
+syntax match jsMongoNin2 contained "nin\>" conceal cchar= 
+syntax match jsMongoNin "\$nin\>" contains=jsMongoNin1,jsMongoNin2
+
+syntax match jsMongoAll1 contained "\$" conceal cchar=∀
+syntax match jsMongoAll2 contained "all\>" conceal cchar= 
+syntax match jsMongoAll "\$all\>" contains=jsMongoAll1,jsMongoAll2
+
+syntax match jsMongoSize1 contained "\$" conceal cchar=#
+syntax match jsMongoSize2 contained "size\>" conceal cchar= 
+syntax match jsMongoSize "\$size\>" contains=jsMongoSize1,jsMongoSize2
 
     syntax keyword jsNiceStatement a conceal cchar=𝒂
     syntax keyword jsNiceStatement b conceal cchar=𝒃
